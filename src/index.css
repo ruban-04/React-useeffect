@@ -52,25 +52,24 @@ code {
 
 .usericon{
   text-align: center;
-  color:rgb(222, 66, 19);
+  color:#ccc;
   font-size: 100px;
 }
 
 
 .form1{
-  
+ 
   border: none;
   width: 385px;
   padding: 10px;
-  margin: 8vh auto;
+  /* margin: 8vh auto; */
   border-radius: 5px;
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(232, 215, 215) 0%, rgb(245, 162, 110) 100%); 
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgb(182, 179, 179) 0%, rgb(159, 159, 158) 100%); 
  
 }
 .head1{
   margin-top: 0px !important;
   text-align: center;
-  /* color:rgb(222, 66, 19); */
 }
 .head2{
   margin-top: 7px;
@@ -126,53 +125,54 @@ code {
 }
 
 .form2{
- 
   border: none;
-  width: 620px;
+  /* width: 540px; */
   padding: 10px;
-  margin: 5vh auto;
+  /* margin: 5vh auto; */
   border-radius: 5px;
   box-shadow: rgba(60, 66, 87, 0.12) 0px 0px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
   background-color: rgba(247, 248, 248, 0.833); 
+ 
+
 }
 .box2{
-  width: 250px;
+  /* width: 208px; */
   padding: 13px;
   border-radius: 5px;
-  margin-top: 7px;
-  margin-left: 5px; 
-  margin-bottom: 10px;
+  /* margin-top: 7px; */
+  /* margin-left: 5px;  */
+  margin-bottom: 5px;
   border: 1px solid gray;
 }
 #cpassword{
-  margin-left: 47px;
+  /* margin-left: 47px; */
 }
 .label1{
-  margin-left: 18px;
-  font-size: 15px;
-  font-weight: 500;
+  /* margin-left: 11px; */
+  /* font-size: 15px; */
+  /* font-weight: 500; */
 }
 .label2{
-  margin-left: 18px;
-  font-size: 15px;
-  font-weight: 500;
+  /* margin-left: 11px; */
+  /* font-size: 15px; */
+  /* font-weight: 500; */
 }
 .box3{
-  width: 565px;
-  padding: 13px;
+  /* width: 479px; */
+  padding: 8px;
   border-radius: 5px;
-  margin-top: 7px;
-  margin-left: 18px;
-  border: 1px solid ;
+  /* margin-top: 7px; */
+  /* margin-left: 18px; */
+  /* border: 1px solid ; */
   border: 1px solid gray;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .box4{
-  width: 590px;
-  padding: 13px;
+  /* width: 590px; */
+  padding: 8px;
   border-radius: 5px;
-  margin-top: 7px;
-  margin-left: 18px;
+  /* margin-top: 7px; */
+  /* margin-left: 18px; */
   border: 1px solid gray;
   margin-bottom: 10px;
 }
@@ -209,4 +209,77 @@ code {
 .indata{
   color:rgb(222, 66, 19);
   margin-left: 21px;
+}
+
+
+
+
+
+
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1440px;
+    /* height: 100vh; */
+    margin:3rem 8rem;
+    box-sizing: border-box;
+}
+
+.register-image {
+    /* width: 50%; */
+    /* height: auto; */
+}
+
+.form2 {
+    width: 450px;
+    padding: 20px;
+    /* box-sizing: border-box; */
+}
+
+.head2 {
+    text-align: center;
+}
+
+.label1,
+.label2 {
+    width: 96%;
+    /* margin-bottom: 15px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.box2,
+.box3 {
+    padding: 10px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.error-text {
+    color: red;
+    font-size: 13px;
+    /* padding-left: 7px; */
+    margin-top: 0;
+}
+
+.button2 {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.para1 {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.link {
+    color: blue;
+    /* text-decoration: underline; */
+    cursor: pointer;
 }
