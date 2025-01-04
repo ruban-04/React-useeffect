@@ -1,212 +1,170 @@
-import React from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import images from './images/img1.jpg';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import images from './images/img1.jpg'
 
 function Register() {
-    const navigate = useNavigate();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
-    const apiUrl = "https://672863f4270bd0b975553389.mockapi.io/cruddata/RegisterForm";
+  // Initial values
+  const initialValues = {
+    firstname: '',
+    lastname: '',
+    email: '',
+    mobile: '',
+    password: '',
+    confirmPassword: '',
+  };
 
-    const formik = useFormik({
-        initialValues: {
-            firstname: "",
-            lastname: "",
-            email: "",
-            mobile: "",
-            password: "",
-            confirmPassword: "",
-            address: "",
-           
-        },
-        validationSchema: Yup.object({
-            firstname: Yup.string().required("Firstname is required*"),
-            lastname: Yup.string().required("Lastname is required*"),
-            email: Yup.string()
-                .email("Invalid email format*")
-                .required("Email is required*"),
-            mobile: Yup.string()
-                .matches(/^\d{10}$/, "Mobile number must be 10 digits*")
-                .required("Mobile number is required*"),
-            password: Yup.string().required("Password is required*"),
-            confirmPassword: Yup.string()
-                .oneOf([Yup.ref("password"), null], "Passwords do not match*")
-                .required("Confirm Password is required*"),
-            address: Yup.string().required("Address is required*"),
-            state: Yup.string().required("State is required*"),
-            country: Yup.string().required("Country is required*"),
-        }),
-        onSubmit: async (values, { resetForm }) => {
-            try {
-                const response = await fetch(apiUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(values),
-                });
+  // Validation Schema
+  const validationSchema = Yup.object({
+    firstname: Yup.string().required('Firstname is required'),
+    lastname: Yup.string().required('Lastname is required'),
+    email: Yup.string().email('Invalid email format').required('Email is required'),
+    mobile: Yup.string()
+      .matches(/^[0-9]{10}$/, 'Mobile number must be 10 digits')
+      .required('Mobile number is required'),
+    password: Yup.string()
+      .min(6, 'Password must be at least 6 characters')
+      .required('Password is required'),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords do not match')
+      .required('Confirm Password is required'),
+  
+  });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log("Registration Successful:", data);
-                    resetForm();
-                    navigate("/RegisterData");
-                } else {
-                    alert("Registration failed. Please try again.");
-                }
-            } catch (error) {
-                console.error("Error:", error);
-                alert("An error occurred. Please try again later.");
-            }
-        },
-    });
+  // Form submission
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const response = await fetch(
+        'https://672863f4270bd0b975553389.mockapi.io/cruddata/RegisterForm',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        }
+      );
 
-    const handleLogin = () => {
-        navigate("/LoginForm");
-    };
+      if (response.ok) {
+        alert('Registration successful!');
+        resetForm();
+        navigate('/Datastorage');
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while registering. Please try again.');
+    }
+  };
 
-    return (
-        <div style={{display:'flex',margin:'3rem 17rem'}}>
-            <img src={images} style={{width:'500px' }}/>
-        <form className="form2" onSubmit={formik.handleSubmit}>
-            <h1 className="head2">Register Here</h1>
-            <div style={{ display: "flex",width:'95%'}}>
-                <label className="label1 ">
-                    Firstname
-                    <input
-                        className="box2"
-                        type="text"
-                        name="firstname"
-                        placeholder="Firstname"
-                        value={formik.values.firstname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.firstname && formik.errors.firstname && (
-                        <p style={{ color: "red", fontSize: 13, paddingLeft: 7, marginTop: 0 }}>
-                            {formik.errors.firstname}
-                        </p>
-                    )}
-                </label>
-                <label className="label1"style={{marginLeft:'3rem'}}>
-                    Lastname
-                    <input
-                        className="box2"
-                        type="text"
-                        name="lastname"
-                        placeholder="Lastname"
-                        value={formik.values.lastname}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                    />
-                    {formik.touched.lastname && formik.errors.lastname && (
-                        <p style={{ color: "red", fontSize: 13, paddingLeft: 7, marginTop: 0 }}>
-                            {formik.errors.lastname}
-                        </p>
-                    )}
-                </label>
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+      
+    >
+      {() => (
+        <div  style={{display:'flex', padding:'30px 19rem',backgroundColor: 'rgb(43, 43, 43)',paddingBottom:'5.1rem', }}>
+
+            <img className='image' src={images} style={{width:'370px',borderRadius:'5px',boxShadow:' rgba(60, 66, 87, 0.12) 0px 0px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px'}}></img>
+
+        <Form className="form2" style={{ width: '400px' }}>
+          <h1 className="head1">Register Here</h1>
+
+          <div style={{ display: 'flex' }}>
+
+            <div className="label1 mt-3" style={{ width: '100%' }}>
+              <label>Firstname</label>
+              <Field className="box2" name="firstname"  style={{ width: '86%' }} />
+              <ErrorMessage name="firstname" component="span" className="error" />
             </div>
-            <label className="label2">
-                Email
-                <input
-                    className="box3"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={formik.values.email}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.email && formik.errors.email && (
-                    <p style={{ color: "red", fontSize: 13, paddingLeft: 20, marginTop: 0 }}>
-                        {formik.errors.email}
-                    </p>
-                )}
-            </label>
-            <label className="label2">
-                Mobile Number
-                <input
-                    className="box3"
-                    type="text"
-                    name="mobile"
-                    placeholder="Mobile Number"
-                    value={formik.values.mobile}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.mobile && formik.errors.mobile && (
-                    <p style={{ color: "red", fontSize: 13, paddingLeft: 20, marginTop: 0 }}>
-                        {formik.errors.mobile}
-                    </p>
-                )}
-            </label>
-            <label className="label2">
-                Password
-                <input
-                    className="box3"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.password && formik.errors.password && (
-                    <p style={{ color: "red", fontSize: 13, paddingLeft: 20, marginTop: 0 }}>
-                        {formik.errors.password}
-                    </p>
-                )}
-            </label>
-            <label className="label2">
-                Confirm Password
-                <input
-                    className="box3"
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
-                    value={formik.values.confirmPassword}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-                    <p style={{ color: "red", fontSize: 13, paddingLeft: 20, marginTop: 0 }}>
-                        {formik.errors.confirmPassword}
-                    </p>
-                )}
-            </label>
-            <label className="label2">
-                Address
-                <input
-                    className="box3"
-                    type="text"
-                    name="address"
-                    placeholder="Address"
-                    value={formik.values.address}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                />
-                {formik.touched.address && formik.errors.address && (
-                    <p style={{ color: "red", fontSize: 13, paddingLeft: 20, marginTop: 0 }}>
-                        {formik.errors.address}
-                    </p>
-                )}
-            </label>
-    
-            <div className="submit">
-                <button className="button2" type="submit">
-                    Register
-                </button>
+
+            <div className="label1 mt-3" style={{ width: '100%' }}>
+              <label>Lastname</label>
+              <Field className="box2" name="lastname"  style={{ width: '89%' }} />
+              <ErrorMessage name="lastname" component="span" className="error" />
             </div>
-            <p className="para1">
-                Already have an Account?{" "}
-                <a className="link" href="#" onClick={handleLogin}>
-                    Login
-                </a>
-            </p>
-        </form>
+          </div>
+
+          <div className="label2" style={{ width: '100%' }}>
+            <label>Email</label>
+            <Field className="box3" name="email" style={{ width: '95%' }} />
+            <ErrorMessage name="email" component="span" className="error" />
+          </div>
+
+          <div className="label2" style={{ width: '100%' }}>
+            <label>Mobile Number</label>
+            <Field
+              className="box3"
+              name="mobile"
+              type="text"
+              style={{ width: '95%' }}
+            />
+            <ErrorMessage name="mobile" component="span" className="error" />
+          </div>
+
+            <div className="label1" style={{ width: '100%' }}>
+              <label>Password</label>
+              <div style={{ display: 'flex', position: 'relative' }}>
+                <Field
+                  className="box2"
+                  name="password"
+                  type={passwordVisible ? 'text' : 'password'}
+                  style={{ width: '100%' }}
+                />
+                <span
+                  className="eye-icon "
+                  style={{ position: 'absolute', right: '10px', top: '9px', cursor: 'pointer',fontSize:'15px',color:'gray' }}
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  {passwordVisible ? <i className="fas fa-eye"></i> : <i className="fas fa-eye-slash"></i>}
+                </span>
+              </div>
+              <ErrorMessage name="password" component="span" className="error" />
+            </div>
+            
+            <div className="label1" style={{ width: '100%' }}>
+              <label>Confirm Password</label>
+              <div style={{ display: 'flex', position: 'relative' }}>
+                <Field
+                  className="box2"
+                  name="confirmPassword"
+                  type={confirmPasswordVisible ? 'text' : 'password'}
+                 
+                  style={{ width: '100%' }}
+                />
+                <span
+                  className="eye-icon"
+                  style={{ position: 'absolute', right: '10px', top: '9px', cursor: 'pointer',fontSize:'15px',color:'gray' }}
+                  onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                >
+                  {confirmPasswordVisible ? <i className="fas fa-eye"></i> : <i className="fas fa-eye-slash"></i>}
+                </span>
+              </div>
+              <ErrorMessage name="confirmPassword" component="span" className="error" />
+            </div>
+        
+          <button className="button2" type="submit" style={{ width: '100%' }}>
+            Register
+          </button>
+          <p className="para2">
+            Already have an Account?
+            <a href="" onClick={() => navigate('/Datastorage')} className="link">
+              Login
+            </a>
+          </p>
+        </Form>
         </div>
-    );
+      )}
+    </Formik>
+  );
 }
 
 export default Register;
+

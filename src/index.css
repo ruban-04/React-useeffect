@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* overflow: hidden; */
   background-color: white;
+  /* position: fixed; */
 }
 
 code {
@@ -70,11 +71,12 @@ code {
 .head1{
   margin-top: 0px !important;
   text-align: center;
+  color: rgb(108, 99, 255);
 }
 .head2{
   margin-top: 7px;
   text-align: center;
-  color:rgb(222, 66, 19);
+  color:rgb(108, 99, 255);
 }
 .input{
   width: 330px;
@@ -85,7 +87,7 @@ code {
   margin-bottom: 10px;
 }
 .input:focus {
-  border: 2px solid rgb(233, 95, 54);
+  border: 2px solid rgb(108, 99, 255);
   outline: none;
 }
 .button2{
@@ -98,188 +100,91 @@ code {
   cursor: pointer;
   border-radius: 3px;
   border: none;
-  background-color:rgb(222, 66, 19);
+  background-color:rgb(108, 99, 255);
   color: white;
 }
 .button2:hover{
-  background-color:rgb(170, 49, 13);
+  background-color:rgb(108, 99, 255);
   color: white;
 }
 .label{
   margin-left: 10px;
   font-size: 19px;
   font-weight: 500;
-
 }
 .para1{
   text-align: center;
-  color:rgb(222, 66, 19);
+  color:rgb(108, 99, 255);
 }
 .link{
   text-decoration: none;
+  color: rgb(108, 99, 255);
 }
 .password{
   text-decoration: none;
   padding-left: 16rem;
-  color: rgb(0, 0, 0);
+  color: rgb(108, 99, 255);
 }
+
 
 .form2{
+  /* font-family: 'Times New Roman', Times, serif; */
   border: none;
-  /* width: 540px; */
-  padding: 10px;
-  /* margin: 5vh auto; */
+  padding: 15px;
   border-radius: 5px;
   box-shadow: rgba(60, 66, 87, 0.12) 0px 0px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px;
-  background-color: rgba(247, 248, 248, 0.833); 
- 
-
+  background-color: rgb(30, 30, 47);
 }
 .box2{
-  /* width: 208px; */
-  padding: 13px;
-  border-radius: 5px;
-  /* margin-top: 7px; */
-  /* margin-left: 5px;  */
-  margin-bottom: 5px;
+  border-radius: 3px;
+  margin-bottom: 8px;
   border: 1px solid gray;
+  padding: 10px;
+
 }
 #cpassword{
-  /* margin-left: 47px; */
-}
-.label1{
-  /* margin-left: 11px; */
-  /* font-size: 15px; */
-  /* font-weight: 500; */
-}
-.label2{
-  /* margin-left: 11px; */
-  /* font-size: 15px; */
-  /* font-weight: 500; */
+  margin-left: 25px;
 }
 .box3{
-  /* width: 479px; */
-  padding: 8px;
-  border-radius: 5px;
-  /* margin-top: 7px; */
-  /* margin-left: 18px; */
-  /* border: 1px solid ; */
+  border-radius: 3px;
   border: 1px solid gray;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+  padding: 10px;
 }
 .box4{
-  /* width: 590px; */
-  padding: 8px;
-  border-radius: 5px;
-  /* margin-top: 7px; */
-  /* margin-left: 18px; */
+ 
+  border-radius: 3px;
+  margin-top: 7px;
   border: 1px solid gray;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
-.box2:focus {
-  border: 2px solid rgb(233, 95, 54);
-  outline: none;
+.error{
+  color:red;
+  font-size: 12px;
 }
-.box3:focus {
-  border: 2px solid rgb(233, 95, 54);
-  outline: none;
-}.box4:focus {
-  border: 2px solid rgb(233, 95, 54);
-  outline: none;
-}
-.button{
+.button2{
   display: inline-block;
-  
-  padding: 10px 15px;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 10px;
   font-size: 19px;
   font-weight: bold;
-  margin-top: 20px;
+  margin-top: 15px;
   cursor: pointer;
   border-radius: 3px;
   border: none;
-  background-color:rgb(222, 66, 19);
-  color: white;
-  margin-bottom: 10px;
-  margin-left: 24px;
-}
-.button:hover{
-  background-color:rgb(170, 49, 13);
+  background-color:rgb(108, 99, 255);;
   color: white;
 }
-.indata{
-  color:rgb(222, 66, 19);
-  margin-left: 21px;
+.button2:hover{
+  background-color: rgba(247, 248, 248, 0.833);
+  color: black;
+}
+.para2{
+  text-align: center;
+  color: white;
+
+}
+.label1,.label2{
+  color: white;
 }
 
-
-
-
-
-
-
-.register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1440px;
-    /* height: 100vh; */
-    margin:3rem 8rem;
-    box-sizing: border-box;
-}
-
-.register-image {
-    /* width: 50%; */
-    /* height: auto; */
-}
-
-.form2 {
-    width: 450px;
-    padding: 20px;
-    /* box-sizing: border-box; */
-}
-
-.head2 {
-    text-align: center;
-}
-
-.label1,
-.label2 {
-    width: 96%;
-    /* margin-bottom: 15px; */
-    display: flex;
-    flex-direction: column;
-}
-
-.box2,
-.box3 {
-    padding: 10px;
-    font-size: 14px;
-    width: 100%;
-}
-
-.error-text {
-    color: red;
-    font-size: 13px;
-    /* padding-left: 7px; */
-    margin-top: 0;
-}
-
-.button2 {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.para1 {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.link {
-    color: blue;
-    /* text-decoration: underline; */
-    cursor: pointer;
-}
