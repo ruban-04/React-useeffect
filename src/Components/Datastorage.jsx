@@ -56,37 +56,37 @@ function Datastorage() {
   };
 
   return (
-    <div  style={{backgroundColor: 'rgb(43, 43, 43)',height:'100vh' }}>
+    <div  style={{backgroundColor: 'rgb(43, 43, 43)',height:'100vh',paddingTop:'3rem'}}>
 
     <TableContainer
       component={Paper}
-    //   style={{ margin: "20px auto", maxWidth: "80%" }}
+      style={{ marginLeft:"15%", maxWidth: "80%",marginRight:'15%' }}
     >
-      <Table>
-        <TableHead>
+      <Table >
+        <TableHead style={{backgroundColor:' rgb(30, 30, 47)'}}>
           <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Firstname</TableCell>
-            <TableCell>Lastname</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Mobile</TableCell>
-            <TableCell>Action</TableCell>
+            <TableCell style={{color:'white',textAlign:'center'}}>ID</TableCell>
+            <TableCell style={{color:'white',textAlign:'center'}}>Firstname</TableCell>
+            <TableCell style={{color:'white',textAlign:'center'}}>Lastname</TableCell>
+            <TableCell style={{color:'white',textAlign:'center'}}>Email</TableCell>
+            <TableCell style={{color:'white',textAlign:'center'}}>Mobile</TableCell>
+            <TableCell style={{color:'white',textAlign:'center'}}>Action</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody style={{ backgroundColor:' rgb(30, 30, 47)',color:'red'}}>
+        <TableBody style={{ color:'red'}}>
           {data.map((row) => (
             <TableRow key={row.id}>
-              <TableCell style={{color:'white'}}>{row.id}</TableCell>
-              <TableCell  style={{color:'white'}}>{row.firstname}</TableCell>
-              <TableCell style={{color:'white'}}>{row.lastname}</TableCell>
-              <TableCell style={{color:'white'}}>{row.email}</TableCell>
-              <TableCell style={{color:'white'}}>{row.mobile}</TableCell>
-              <TableCell>
+              <TableCell style={{color:'Black',textAlign:'center'}}>{row.id}</TableCell>
+              <TableCell  style={{color:'Black',textAlign:'center'}}>{row.firstname}</TableCell>
+              <TableCell style={{color:'Black',textAlign:'center'}}>{row.lastname}</TableCell>
+              <TableCell style={{color:'Black',textAlign:'center'}}>{row.email}</TableCell>
+              <TableCell style={{color:'Black',textAlign:'center'}}>{row.mobile}</TableCell>
+              <TableCell style={{textAlign:'center'}}>
                 <IconButton
                   onClick={() => handleEdit(row)}
                   style={{ color: "green" }}
                 >
-                  <EditIcon />
+                  <EditIcon/>
                 </IconButton>
                 <IconButton
                   onClick={() => handleDelete(row.id)}

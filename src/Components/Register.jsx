@@ -81,20 +81,20 @@ function Register() {
 
             <div className="label1 mt-3" style={{ width: '100%' }}>
               <label>Firstname</label>
-              <Field className="box2" name="firstname"  style={{ width: '86%' }} />
+              <Field className="box2" name="firstname" placeholder="Firstname" style={{ width: '86%' }} />
               <ErrorMessage name="firstname" component="span" className="error" />
             </div>
 
             <div className="label1 mt-3" style={{ width: '100%' }}>
               <label>Lastname</label>
-              <Field className="box2" name="lastname"  style={{ width: '89%' }} />
+              <Field className="box2" name="lastname" placeholder="Lastname"  style={{ width: '89%' }} />
               <ErrorMessage name="lastname" component="span" className="error" />
             </div>
           </div>
 
           <div className="label2" style={{ width: '100%' }}>
             <label>Email</label>
-            <Field className="box3" name="email" style={{ width: '95%' }} />
+            <Field className="box3" name="email" placeholder="Email" style={{ width: '95%' }} />
             <ErrorMessage name="email" component="span" className="error" />
           </div>
 
@@ -103,6 +103,7 @@ function Register() {
             <Field
               className="box3"
               name="mobile"
+              placeholder='Mobile Number'
               type="text"
               style={{ width: '95%' }}
             />
@@ -115,6 +116,7 @@ function Register() {
                 <Field
                   className="box2"
                   name="password"
+                  placeholder="Password"
                   type={passwordVisible ? 'text' : 'password'}
                   style={{ width: '100%' }}
                 />
@@ -135,6 +137,7 @@ function Register() {
                 <Field
                   className="box2"
                   name="confirmPassword"
+                  placeholder="Confirm Password"
                   type={confirmPasswordVisible ? 'text' : 'password'}
                  
                   style={{ width: '100%' }}
