@@ -1,64 +1,70 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import images from './images/img1.jpg'
+
+import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import images from "./images/img1.jpg";
 
 function Register() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const rowData = location.state?.rowData;
 
-  // Initial values
   const initialValues = {
-    firstname: '',
-    lastname: '',
-    email: '',
-    mobile: '',
-    password: '',
-    confirmPassword: '',
+    firstname: rowData?.firstname || "",
+    lastname: rowData?.lastname || "",
+    email: rowData?.email || "",
+    mobile: rowData?.mobile || "",
+    password: rowData?.password || "",
+    confirmpassword: rowData?.confirmpassword || "",
+    acceptTerms: false,
   };
 
-  // Validation Schema
   const validationSchema = Yup.object({
-    firstname: Yup.string().required('Firstname is required'),
-    lastname: Yup.string().required('Lastname is required'),
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    firstname: Yup.string().required("Firstname is required"),
+    lastname: Yup.string().required("Lastname is required"),
+    email: Yup.string()
+      .email("Invalid email format")
+      .required("Email is required"),
     mobile: Yup.string()
-      .matches(/^[0-9]{10}$/, 'Mobile number must be 10 digits')
-      .required('Mobile number is required'),
+      .matches(/^[0-9]{10}$/, "Mobile number must be 10 digits")
+      .required("Mobile number is required"),
     password: Yup.string()
-      .min(6, 'Password must be at least 6 characters')
-      .required('Password is required'),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords do not match')
-      .required('Confirm Password is required'),
-  
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+    confirmpassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords do not match")
+      .required("Confirm Password is required"),
+    acceptTerms: Yup.boolean().oneOf(
+      [true],
+      "You must accept the terms and conditions"
+    ),
   });
 
-  // Form submission
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      const response = await fetch(
-        'https://672863f4270bd0b975553389.mockapi.io/cruddata/RegisterForm',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
-        }
-      );
+      const method = rowData ? "PUT" : "POST";
+      const url = rowData
+        ? `https://672863f4270bd0b975553389.mockapi.io/cruddata/RegisterForm/${rowData.id}`
+        : "https://672863f4270bd0b975553389.mockapi.io/cruddata/RegisterForm";
+
+      const response = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
 
       if (response.ok) {
-        alert('Registration successful!');
         resetForm();
-        navigate('/Datastorage');
+        navigate("/Datastorage");
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.message}`);
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('An error occurred while registering. Please try again.');
+      console.error("Error:", error);
     }
   };
 
@@ -67,102 +73,123 @@ function Register() {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
-      
+      enableReinitialize
     >
       {() => (
-        <div  style={{display:'flex', padding:'30px 19rem',backgroundColor: 'rgb(43, 43, 43)',paddingBottom:'5.1rem', }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "rgb(43, 43, 43)",
+            height: "100vh",
+          }}
+        >
+          <img
+            className="image"
+            src={images}
+            alt="Register"
+            style={{
+              width: "400px",
+              borderRadius: "5px",
+              boxShadow:
+                "rgba(60, 66, 87, 0.12) 0px 0px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px",
+                height:'74%'
+            }}
+          />
+          <Form className="form2" style={{ width: "400px", overflowY: "auto" }}>
+            <h1 className="head1" style={{ textAlign: "center", color: "white" }}>
+              {rowData ? "Edit Form" : "Register Here"}
+            </h1>
 
-            <img className='image' src={images} style={{width:'370px',borderRadius:'5px',boxShadow:' rgba(60, 66, 87, 0.12) 0px 0px 14px 0px, rgba(0, 0, 0, 0.12) 0px 3px 6px 0px'}}></img>
-
-        <Form className="form2" style={{ width: '400px' }}>
-          <h1 className="head1">Register Here</h1>
-
-          <div style={{ display: 'flex' }}>
-
-            <div className="label1 mt-3" style={{ width: '100%' }}>
-              <label>Firstname</label>
-              <Field className="box2" name="firstname" placeholder="Firstname" style={{ width: '86%' }} />
-              <ErrorMessage name="firstname" component="span" className="error" />
-            </div>
-
-            <div className="label1 mt-3" style={{ width: '100%' }}>
-              <label>Lastname</label>
-              <Field className="box2" name="lastname" placeholder="Lastname"  style={{ width: '89%' }} />
-              <ErrorMessage name="lastname" component="span" className="error" />
-            </div>
-          </div>
-
-          <div className="label2" style={{ width: '100%' }}>
-            <label>Email</label>
-            <Field className="box3" name="email" placeholder="Email" style={{ width: '95%' }} />
-            <ErrorMessage name="email" component="span" className="error" />
-          </div>
-
-          <div className="label2" style={{ width: '100%' }}>
-            <label>Mobile Number</label>
-            <Field
-              className="box3"
-              name="mobile"
-              placeholder='Mobile Number'
-              type="text"
-              style={{ width: '95%' }}
-            />
-            <ErrorMessage name="mobile" component="span" className="error" />
-          </div>
-
-            <div className="label1" style={{ width: '100%' }}>
-              <label>Password</label>
-              <div style={{ display: 'flex', position: 'relative' }}>
+            {[ 
+              { name: "firstname", label: "Firstname", type: "text", placeholder: "Firstname" },
+              { name: "lastname", label: "Lastname", type: "text", placeholder: "Lastname" },
+              { name: "email", label: "Email", type: "email", placeholder: "Email" },
+              { name: "mobile", label: "Mobile Number", type: "text", placeholder: "Mobile Number" },
+            ].map((field) => (
+              <div className="label1" key={field.name} style={{ width: "100%", marginBottom: "15px" }}>
+                <label style={{ color: "white" }}>{field.label}</label>
                 <Field
                   className="box2"
-                  name="password"
-                  placeholder="Password"
-                  type={passwordVisible ? 'text' : 'password'}
-                  style={{ width: '100%' }}
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                  style={{ width: "94%" }}
                 />
-                <span
-                  className="eye-icon "
-                  style={{ position: 'absolute', right: '10px', top: '9px', cursor: 'pointer',fontSize:'15px',color:'gray' }}
-                  onClick={() => setPasswordVisible(!passwordVisible)}
-                >
-                  {passwordVisible ? <i className="fas fa-eye"></i> : <i className="fas fa-eye-slash"></i>}
-                </span>
+                <ErrorMessage name={field.name} component="div" className="error" />
               </div>
-              <ErrorMessage name="password" component="span" className="error" />
-            </div>
-            
-            <div className="label1" style={{ width: '100%' }}>
-              <label>Confirm Password</label>
-              <div style={{ display: 'flex', position: 'relative' }}>
+            ))}
+
+            {[ 
+              { name: "password", label: "Password", visible: passwordVisible, setVisible: setPasswordVisible },
+              { name: "confirmpassword", label: "Confirm Password", visible: confirmPasswordVisible, setVisible: setConfirmPasswordVisible },
+            ].map((field) => (
+              <div className="label1" key={field.name} style={{ width: "100%", marginBottom: "15px" }}>
+                <label style={{ color: "white" }}>{field.label}</label>
+                <div style={{ display: "flex", position: "relative" }}>
+                  <Field
+                    className="box2"
+                    name={field.name}
+                    type={field.visible ? "text" : "password"}
+                    placeholder={field.label}
+                    style={{ width: "94%" }}
+                  />
+                  <span
+                    className="eye-icon"
+                    style={{
+                      position: "absolute",
+                      right: "10px",
+                      top: "4px",
+                      cursor: "pointer",
+                      fontSize: "15px",
+                      color: "gray",
+                    }}
+                    onClick={() => field.setVisible(!field.visible)}
+                  >
+                    {field.visible ? (
+                      <i className="fas fa-eye" style={{marginTop:'9px'}}></i>
+                    ) : (
+                      <i className="fas fa-eye-slash" style={{marginTop:'9px'}}></i>
+                    )}
+                  </span>
+                </div>
+                <ErrorMessage name={field.name} component="div" className="error" />
+              </div>
+            ))}
+
+            <div style={{ margin: "15px 0" }}>
+              <label style={{ color: "white" }}>
                 <Field
-                  className="box2"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  type={confirmPasswordVisible ? 'text' : 'password'}
-                 
-                  style={{ width: '100%' }}
+                  type="checkbox"
+                  name="acceptTerms"
+                  style={{ marginRight: "10px" }}
                 />
-                <span
-                  className="eye-icon"
-                  style={{ position: 'absolute', right: '10px', top: '9px', cursor: 'pointer',fontSize:'15px',color:'gray' }}
-                  onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-                >
-                  {confirmPasswordVisible ? <i className="fas fa-eye"></i> : <i className="fas fa-eye-slash"></i>}
-                </span>
-              </div>
-              <ErrorMessage name="confirmPassword" component="span" className="error" />
+                I accept the terms and conditions
+              </label>
+              <ErrorMessage
+                name="acceptTerms"
+                component="div"
+                className="error"
+              />
             </div>
-        
-          <button className="button2" type="submit" style={{ width: '100%' }}>
-            Register
-          </button>
-          <p className="para2">
-            Already have an Account?
-            <a href="" onClick={() => navigate('/Datastorage')} className="link">
-              Login
-            </a>
-          </p>
-        </Form>
+
+            <button className="button2" type="submit" style={{ width: "100%" }}>
+              {rowData ? "Update" : "Register"}
+            </button>
+
+            <p className="para2" style={{ marginTop: "10px", textAlign: "center" }}>
+              Already have an Account?{" "}
+              <a
+                href="#"
+                onClick={() => navigate("/Datastorage")}
+                className="link"
+                style={{ color: "skyblue" }}
+              >
+                Login
+              </a>
+            </p>
+          </Form>
         </div>
       )}
     </Formik>
@@ -170,4 +197,3 @@ function Register() {
 }
 
 export default Register;
-

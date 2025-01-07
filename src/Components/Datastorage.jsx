@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -56,50 +57,63 @@ function Datastorage() {
   };
 
   return (
-    <div  style={{backgroundColor: 'rgb(43, 43, 43)',height:'100vh',paddingTop:'3rem'}}>
-
-    <TableContainer
-      component={Paper}
-      style={{ marginLeft:"15%", maxWidth: "80%",marginRight:'15%' }}
+    <div
+      style={{
+        backgroundColor: "rgb(43, 43, 43)",
+        height: "100vh",
+        paddingTop: "3rem",
+      }}
     >
-      <Table >
-        <TableHead style={{backgroundColor:' rgb(30, 30, 47)'}}>
-          <TableRow>
-            <TableCell style={{color:'white',textAlign:'center'}}>ID</TableCell>
-            <TableCell style={{color:'white',textAlign:'center'}}>Firstname</TableCell>
-            <TableCell style={{color:'white',textAlign:'center'}}>Lastname</TableCell>
-            <TableCell style={{color:'white',textAlign:'center'}}>Email</TableCell>
-            <TableCell style={{color:'white',textAlign:'center'}}>Mobile</TableCell>
-            <TableCell style={{color:'white',textAlign:'center'}}>Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody style={{ color:'red'}}>
-          {data.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell style={{color:'Black',textAlign:'center'}}>{row.id}</TableCell>
-              <TableCell  style={{color:'Black',textAlign:'center'}}>{row.firstname}</TableCell>
-              <TableCell style={{color:'Black',textAlign:'center'}}>{row.lastname}</TableCell>
-              <TableCell style={{color:'Black',textAlign:'center'}}>{row.email}</TableCell>
-              <TableCell style={{color:'Black',textAlign:'center'}}>{row.mobile}</TableCell>
-              <TableCell style={{textAlign:'center'}}>
-                <IconButton
-                  onClick={() => handleEdit(row)}
-                  style={{ color: "green" }}
-                >
-                  <EditIcon/>
-                </IconButton>
-                <IconButton
-                  onClick={() => handleDelete(row.id)}
-                  style={{ color: "red" }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
+      <TableContainer
+        component={Paper}
+        style={{ marginLeft: "15%", maxWidth: "80%", marginRight: "15%" }}
+      >
+        <Table>
+          <TableHead style={{ backgroundColor: "rgb(30, 30, 47)" }}>
+            <TableRow>
+              <TableCell style={{ color: "white", textAlign: "center" }}>ID</TableCell>
+              <TableCell style={{ color: "white", textAlign: "center" }}>Firstname</TableCell>
+              <TableCell style={{ color: "white", textAlign: "center" }}>Lastname</TableCell>
+              <TableCell style={{ color: "white", textAlign: "center" }}>Email</TableCell>
+              <TableCell style={{ color: "white", textAlign: "center" }}>Mobile</TableCell>
+              {/* <TableCell style={{ color: "white", textAlign: "center" }}>Password</TableCell> */}
+              {/* <TableCell style={{ color: "white", textAlign: "center" }}>
+                Confirm Password
+              </TableCell> */}
+              <TableCell style={{ color: "white", textAlign: "center" }}>Action</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell style={{ color: "black", textAlign: "center" }}>{row.id}</TableCell>
+                <TableCell style={{ color: "black", textAlign: "center" }}>{row.firstname}</TableCell>
+                <TableCell style={{ color: "black", textAlign: "center" }}>{row.lastname}</TableCell>
+                <TableCell style={{ color: "black", textAlign: "center" }}>{row.email}</TableCell>
+                <TableCell style={{ color: "black", textAlign: "center" }}>{row.mobile}</TableCell>
+                {/* <TableCell style={{ color: "black", textAlign: "center" }}>{row.password}</TableCell> */}
+                {/* <TableCell style={{ color: "black", textAlign: "center" }}>
+                  {row.confirmpassword}
+                </TableCell> */}
+                <TableCell style={{ textAlign: "center" }}>
+                  <IconButton
+                    onClick={() => handleEdit(row)}
+                    style={{ color: "green" }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleDelete(row.id)}
+                    style={{ color: "red" }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
