@@ -121,6 +121,7 @@ function Register() {
               </div>
             ))}
 
+             
             {[ 
               { name: "password", label: "Password", visible: passwordVisible, setVisible: setPasswordVisible },
               { name: "confirmpassword", label: "Confirm Password", visible: confirmPasswordVisible, setVisible: setConfirmPasswordVisible },
